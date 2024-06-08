@@ -8,21 +8,25 @@ const DisplayName = () => {
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
-    if(e.target.value){
+    if (e.target.value) {
       e.target.setCustomValidity("");
     }
   };
 
   const handleLastName = (e) => {
     setLastName(e.target.value);
-    if(e.target.value){
+    if (e.target.value) {
       e.target.setCustomValidity("");
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFullName(`${firstName} ${lastName}`);
+    if (firstName && lastName) {
+      setFullName(`${firstName} ${lastName}`);
+    } else {
+      setFullName("");
+    }
   };
 
   return (
@@ -32,6 +36,8 @@ const DisplayName = () => {
         <label>
           First name:
           <input
+            type="text"
+            name="firstName"
             placeholder="Enter your first name"
             onChange={handleFirstName}
             value={firstName}
@@ -41,6 +47,8 @@ const DisplayName = () => {
         <label>
           Last name:
           <input
+            type="text"
+            name="lastName"
             placeholder="Enter your last name"
             onChange={handleLastName}
             value={lastName}
@@ -49,14 +57,9 @@ const DisplayName = () => {
         </label>
         <button type="submit">Submit</button>
       </form>
-      {fullName && (
-        <p>
-          Full Name: {fullName}
-        </p>
-      )}
+      {fullName && <p>Full Name: {fullName}</p>}
     </div>
   );
 };
-
 
 export default DisplayName;
